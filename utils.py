@@ -15,5 +15,5 @@ def find_by_name(name, items):
 
     if len(item) > 0:
         return item[0]
-    
+
     return None

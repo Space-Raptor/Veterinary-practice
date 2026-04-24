@@ -5,18 +5,19 @@ A few basic tests for the veterinary practice application.
 import appointment
 from appointment import Appointment
 from prescription import PrescriptionStatus
-from veterinary_practice import veterinary_practice
+from veterinary_practice import VeterinaryPractice
 
-vp = veterinary_practice()
+vp = VeterinaryPractice()
 
 def setup():
     """ Create a pet to be used by the different tests """
     global vp
-    vp = veterinary_practice()    
+    vp = VeterinaryPractice()    
     vp.register_pet("Kitty", "Tim", "cat") 
     return vp.find_owner("Tim").find_pet("Kitty")
 
-def test_register_pet():    
+def test_register_pet(): 
+ 
     setup() # creates a pet
 
     # find the owner to they have been registered
@@ -35,7 +36,7 @@ def test_appointments():
     vp.create_appointment(a)
 
     notes = vp.attend_appointment(0)
-    
+
     assert notes == ['weight= input', 'input']
     # to test your appointment code:
     #assert notes == ['weight= input', 'input', 'vaccination = input', 'vaccination = input', 'surgery= input']
@@ -53,7 +54,7 @@ def test_prescription_too_little_stock():
     # create a prescription that there isn't enough stock for
     id = vp.create_prescription(pet, med, 5)
     prescription = vp.find_prescription(id)
-    assert prescription.status == PrescriptionStatus.out_of_stock
+    assert prescription.status == PrescriptionStatus.OUT_OF_STOCK
 
 def test_prescription_with_stock():
     pet = setup() # creates a pet 
@@ -65,12 +66,12 @@ def test_prescription_with_stock():
     # create a prescription that there is enough stock for
     id = vp.create_prescription(pet, med, 2)
     prescription = vp.find_prescription(id)
-    assert prescription.status == PrescriptionStatus.preparing_order
+    assert prescription.status == PrescriptionStatus.PREPARING_ORDER
 
     # prepare the prescription
     vp.prepare_prescription_for_collection(id)
-    assert prescription.status == PrescriptionStatus.ready_for_collection
+    assert prescription.status == PrescriptionStatus.READY_FOR_COLLECTION
 
     # collect the prescription
     vp.collect_prescription(id)
-    assert prescription.status == PrescriptionStatus.collected
+    assert prescription.status == PrescriptionStatus.COLLECTED
