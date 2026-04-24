@@ -5,7 +5,7 @@ from medication import Medication
 from owner import Owner
 import utils
 
-class veterinary_practice:
+class VeterinaryPractice:
     """ Holds the data required for the Veterinary Practice application and allows:
         - pets to be registered
         - appointments for pets to be created and attended
@@ -56,7 +56,7 @@ class veterinary_practice:
             return appointment.get_notes()
         else:
             return "Unrecognized appointment ID"
-     
+
 
     def stock_medication(self, medication_name, amount):
         """ Find the medication by the given name or, if it does not exist, creates the medication.
@@ -85,7 +85,7 @@ class veterinary_practice:
         self.prescriptions.append(prescription)
 
         return len(self.prescriptions) - 1    
-        
+
     def prepare_prescription_for_collection(self, prescription_id):
         """ Attempts to change the prescription status from being prepared to ready for collection
         
@@ -94,13 +94,13 @@ class veterinary_practice:
         """
         prescription = self.find_prescription(prescription_id)
         if prescription:
-            if prescription.prepareForCollection():     
+            if prescription.prepare_for_collection():     
                 return "Prescription prepared"
             return "Prescription is not ready for preparation"
         else:
             return "Unrecognized prescription ID"
-        
-    
+
+
     def collect_prescription(self, prescription_id):
         """ Attempts to change the prescription status from ready for collection to collected.
         
@@ -114,36 +114,61 @@ class veterinary_practice:
             return "Prescription is not ready for collection"
         else:
             return "Unrecognized prescription ID"
-    
+
 
     #===================================
     # Basic access methods
 
     def has_owners(self):
+        """
+        param: self
+        """
         return len(self.owners) > 0
-    
+
     def has_medications(self):
+        """
+        param: self
+        """
         return len(self.medications) > 0
-    
+
     def has_prescriptions(self):
+        """
+        param: self
+        """
         return len(self.prescriptions) > 0
 
     def find_owner(self, name):
+        """
+        param: self
+        param: name: name of the owner to find
+        """
         return utils.find_by_name(name, self.owners)
-        
-    def find_medication(self, name):
-        return utils.find_by_name(name, self.medications) 
-    
-    def find_prescription(self, id):
-        if id < len(self.prescriptions):
-            return self.prescriptions[id]
-        return None
-    
-    def find_appointment(self, id):
-        if id < len(self.appointments):
-            return self.appointments[id]
-        return None
-    
 
-# EOF    
+    def find_medication(self, name):
+        """
+        param: self 
+        param: name: name of the medication to find
+        """
+        return utils.find_by_name(name, self.medications)
+
+    def find_prescription(self, perscription_id):
+        """
+        param: self
+        param: perscription_id : the id of the perscription you want to find
+        """
+        if perscription_id < len(self.prescriptions):
+            return self.prescriptions[perscription_id]
+        return None
+
+    def find_appointment(self, appointment_id):
+        """
+        param: self 
+        param: appoitment_id: the id of the appointment you want to find
+        """
+        if appointment_id < len(self.appointments):
+            return self.appointments[appointment_id]
+        return None
+
+
+# EOF
 #------
