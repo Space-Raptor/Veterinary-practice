@@ -5,10 +5,10 @@ from enum import Enum
 
 class PrescriptionStatus(Enum):
     """ Used to track the status of the prescription  """
-    preparing_order = 1 # if the medication is in stock, the pharmacist needs to prepare the medication before it can be collected.
-    ready_for_collection = 2 # after the pharmacist has prepared the medication, it becomes ready for collection.
-    out_of_stock = 3 # when the medication is restocked, the status should become preparing_orderED 
-    collected = 4 # end status: the medication has been collected.
+    PREPARING_ORDER = 1 # if the medication is in stock, the pharmacist needs to prepare the medication before it can be collected.
+    READY_FOR_COLLECTION = 2 # after the pharmacist has prepared the medication, it becomes ready for collection.
+    OUT_OF_STOCK = 3 # when the medication is restocked, the status should become preparing_orderED 
+    COLLECTED = 4 # end status: the medication has been collected.
 
 class Prescription():
     """
@@ -32,38 +32,38 @@ class Prescription():
         self.pet = pet
         self.medication = medication
         self.dosage = dosage
-        
-        self._prepareOrWaitForStock()
+
+        self.prepare_or_wait_for_stock()
 
 
-    def _prepareOrWaitForStock(self):
+    def prepare_or_wait_for_stock(self):
         """ Checks if there is enough medication is stock for this prescription.
         :param self
         """
         if self.medication.has_enough_stock(self.dosage):
-            self.status = PrescriptionStatus.preparing_order
+            self.status = PrescriptionStatus.PREPARING_ORDER
         else:
-            self.status = PrescriptionStatus.out_of_stock
+            self.status = PrescriptionStatus.OUT_OF_STOCK
 
-    def prepareForCollection(self):
+    def prepare_for_collection(self):
         """ If the status is preparing_order, the order becomes ready_for_collection
         :param self
         :return True if the order becomes ready for collection; otherwise, False
         """
-        if self.status == PrescriptionStatus.preparing_order:
+        if self.status == PrescriptionStatus.PREPARING_ORDER:
             self.medication.reduce_stock(self.dosage)
-            self.status = PrescriptionStatus.ready_for_collection
+            self.status = PrescriptionStatus.READY_FOR_COLLECTION
             return True
         else:
             return False
-            
+
     def collect(self):
         """ If the status is ready_for_collection, the order becomes collected
         :param self
         :return True if the order is collected; otherwise, False
         """
-        if self.status == PrescriptionStatus.ready_for_collection:
-            self.status = PrescriptionStatus.collected
+        if self.status == PrescriptionStatus.READY_FOR_COLLECTION:
+            self.status = PrescriptionStatus.COLLECTED
             return True
         else:
             return False
