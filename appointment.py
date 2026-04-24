@@ -37,10 +37,18 @@ class Appointment:
     # getters
 
     def get_pet(self):
+        """
+        Getter for pet
+        param: self 
+        """
         return self.pet
-    
+
     def get_notes(self):
+        """
+        Getter for notes
+        param: self
+        """
         return self.notes
-    
+
 # EOF
 #----
