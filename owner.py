@@ -25,6 +25,10 @@ class Owner:
         """
         self.pets.append(Pet(name, self, species))
 
-    
+
     def find_pet(self, name):
+        """
+        param: self
+        param: name: the name of the pet you want to find
+        """
         return utils.find_by_name(name, self.pets)
