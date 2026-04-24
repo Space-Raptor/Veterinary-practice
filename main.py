@@ -6,7 +6,7 @@ The UI menu is displayed to the user until they choose to exit the application.
 """
 
 from appointment import Appointment
-from veterinary_practice import veterinary_practice
+from veterinary_practice import VeterinaryPractice
 
 class UserInterface:
     """
@@ -178,7 +178,7 @@ class UserInterface:
 #------------------------------
 
 if __name__ == "__main__":
-    ui = UserInterface(veterinary_practice())
+    ui = UserInterface(VeterinaryPractice())
     keep_going = True
     while keep_going:
         keep_going = ui.menu()
