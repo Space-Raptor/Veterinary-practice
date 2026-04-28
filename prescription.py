@@ -32,9 +32,14 @@ class Prescription():
         self.pet = pet
         self.medication = medication
         self.dosage = dosage
-
+        medication.attach(self) # Subscribe the perscription to its medication upon creation
         self.prepare_or_wait_for_stock()
 
+    def update(self):
+        """
+        Updates the perscription status.
+        """
+        self.prepare_for_collection()
 
     def prepare_or_wait_for_stock(self):
         """ Checks if there is enough medication is stock for this prescription.
