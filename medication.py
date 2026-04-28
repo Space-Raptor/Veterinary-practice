@@ -1,9 +1,39 @@
 """ medication.py
 contains the medication class 
 """
+from abc import ABC, abstractmethod
+
+class Subject(ABC):
+    """
+    Subject interface enforces observer design pattern
+    """
+    @abstractmethod
+    def attach(self, observer):
+        """
+        param: self
+        param observer: The observer you want to subsribe to the sucject
+        """
+        pass
+
+    @abstractmethod
+    def detach(self, observer):
+        """
+        param: self
+        param observer: The observer you want to detach from the subject
+        """
+        pass
+
+    @abstractmethod
+    def notify(self):
+        """
+        This will update each observer that is subscribed to the subject
+        param: self 
+        """
+        pass
 
 
-class Medication():
+
+class Medication(Subject):
     """
     Meication class contains a name for the medication and the amount it has in stock
     """
@@ -17,6 +47,17 @@ class Medication():
         """
         self.name = name
         self.amount_in_stock = amount_in_stock
+        self.observers = []
+
+    def attach(self, observer):
+        self.observers.append(observer)
+
+    def detach(self, observer):
+        self.observers.remove(observer)
+
+    def notify(self):
+        for observer in self.observers:
+            observer.update()
 
     def restock(self, amount):
         """        
