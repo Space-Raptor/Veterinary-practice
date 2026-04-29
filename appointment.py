@@ -13,21 +13,22 @@ class AppoitmentInterface(ABC):
         """This is used to get our notes"""
         pass
 
-class AppoitmentDecorator:
+class AppoitmentDecorator(AppoitmentInterface):
     """Decorator"""
     def __init__(self, decorated_appoitment):
         self.decorated_appoitment = decorated_appoitment
+
+    def attend_appointment(self):
+        """This function is whats called unitl we reach our concrete class"""
+        self.decorated_appoitment.attend_appointment()
+
     def get_notes(self):
         """Returns the appoitment notes"""
         return self.decorated_appoitment.get_notes(self)
 
-class VaccinationDecorator(AppoitmentDecorator): 
-    def get_notes(self): 
-        print("Enter vaccination notes: ")
-        note = input()
-        return self.decorated_appoitment.get_notes(self) + f"Vaccination = {note}"
 
-class Appointment:
+
+class Appointment(AppoitmentInterface):
     """
     Stores the appointment details. Allows notes to be entered when the appointment is attended.
     """
