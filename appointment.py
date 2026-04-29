@@ -35,6 +35,14 @@ class VaccinationDecorator(AppoitmentDecorator):
         note = input()
         self.decorated_appoitment.get_notes().append(f"Vaccination = {note}") # append notes onto notes list
 
+class SurgeryDecorator(AppoitmentDecorator):
+    """Decorator"""
+    def attend_appointment(self):
+        self.decorated_appoitment.attend_appointment()
+        print("Enter Surgey notes: ")
+
+        note = input()
+        self.decorated_appoitment.get_notes().append(f"Surgery = {note}") # append notes onto notes list
 
 class Appointment(AppoitmentInterface):
     """
