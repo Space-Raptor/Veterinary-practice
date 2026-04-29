@@ -1,5 +1,15 @@
 """ appointment.py
 """
+from abc import ABC, abstractmethod
+
+class AppoitmentDecorator:
+    """Decorator"""
+    def __init__(self, decorated_appoitment):
+        self.decorated_appoitment = decorated_appoitment
+    def get_notes(self):
+        """Returns the appoitment notes"""
+        return self.decorated_appoitment.get_notes(self)
+
 class Appointment:
     """
     Stores the appointment details. Allows notes to be entered when the appointment is attended.
