@@ -2,6 +2,17 @@
 """
 from abc import ABC, abstractmethod
 
+class AppoitmentInterface(ABC):
+    """This is the interface that will link our decorators to our concrete class"""
+    @abstractmethod
+    def attend_appointment(self):
+        """This is the method that we want to decorate"""
+        pass
+    @abstractmethod
+    def get_notes(self):
+        """This is used to get our notes"""
+        pass
+
 class AppoitmentDecorator:
     """Decorator"""
     def __init__(self, decorated_appoitment):
@@ -9,6 +20,12 @@ class AppoitmentDecorator:
     def get_notes(self):
         """Returns the appoitment notes"""
         return self.decorated_appoitment.get_notes(self)
+
+class VaccinationDecorator(AppoitmentDecorator): 
+    def get_notes(self): 
+        print("Enter vaccination notes: ")
+        note = input()
+        return self.decorated_appoitment.get_notes(self) + f"Vaccination = {note}"
 
 class Appointment:
     """
