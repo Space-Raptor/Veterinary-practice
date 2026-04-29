@@ -65,7 +65,7 @@ class Medication(Subject):
         :param amount (int): The amount to increase the stock by
         """
         self.amount_in_stock += amount
-
+        self.notify() # Update observers when stock changes
 
     def reduce_stock(self, amount):
         """
@@ -73,6 +73,9 @@ class Medication(Subject):
         param: amount: the number to reduce the stock by
         """
         self.amount_in_stock -= amount
+        self.notify() # Update observers when stock changes
+
+
 
 
     def has_enough_stock(self, dosage):        
